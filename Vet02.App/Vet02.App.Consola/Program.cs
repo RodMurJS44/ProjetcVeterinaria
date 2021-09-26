@@ -279,7 +279,7 @@ namespace Vet02.App.Consola
 			Console.Write("Edad: ");
 			int edadAdm = Convert.ToInt32(Console.ReadLine());
 			Console.Write("Numero de Documento: ");
-            int numDocAdm = Convert.ToInt32(Console.ReadLine());
+                        int numDocAdm = Convert.ToInt32(Console.ReadLine());
 			Console.Write("Cargo: ");
 			string cargoAdm = Console.ReadLine();
 			Console.Write("Correo electronico: ");
