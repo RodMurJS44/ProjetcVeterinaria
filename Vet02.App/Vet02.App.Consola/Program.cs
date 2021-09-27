@@ -7,8 +7,8 @@ namespace Vet02.App.Consola
 {
     class Program
     {
-        private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
-        private static IRepositorioAdministrador repositorioAdministrador = new RepositorioAdministrador(new Persistencia.AppContext());
+        //private static IRepositorioVeterinario repositorioVeterinario = new RepositorioVeterinario(new Persistencia.AppContext());
+        //private static IRepositorioAdministrador repositorioAdministrador = new RepositorioAdministrador(new Persistencia.AppContext());
         static void Main(string[] args)
         {
             MenuPrincipal();
@@ -104,11 +104,41 @@ namespace Vet02.App.Consola
                                 Console.WriteLine("Agregar Admin...");
                                 Thread.Sleep(1500);
                                 Console.Clear();
-                                AgregarAdmin();
+                                bool regAdmin = GestionAdministradores.AgregarAdmin();
+                                if(regAdmin)
+                                {
+                                    Console.WriteLine("Administrador registrado exitosamente");
+                                    Console.WriteLine("\nPRESIONE ENTER PARA CONTINUAR");
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("No se pudo registrar Administrador");
+                                    Console.WriteLine("\nPRESIONE ENTER PARA CONTINUAR");
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                }
                                 break;
                             case 2:
                                 Console.WriteLine("Agregar Vet...");
                                 Thread.Sleep(1500);
+                                Console.Clear();
+                                bool regVet = GestionVeterinarios.AgregarVeterinario();
+                                if(regVet)
+                                {
+                                    Console.WriteLine("Veterinario registrado exitosamente");
+                                    Console.WriteLine("\nPRESIONE ENTER PARA CONTINUAR");
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("No se pudo registrar Veterinario");
+                                    Console.WriteLine("\nPRESIONE ENTER PARA CONTINUAR");
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                }
                                 break;
                             case 3:
                                 Console.WriteLine("Agregar Cuidador...");
@@ -143,11 +173,13 @@ namespace Vet02.App.Consola
                                 Console.WriteLine("Consultar Admin...");
                                 Thread.Sleep(1500);
                                 Console.Clear();
-                                ConsultarAdmin();
+                                GestionAdministradores.ConsultarAdministrador();
                                 break;
                             case 2:
                                 Console.WriteLine("Consultar Vet...");
                                 Thread.Sleep(1500);
+                                Console.Clear();
+                                GestionVeterinarios.ConsultarVeterinario();
                                 break;
                             case 3:
                                 Console.WriteLine("Consultar Cuidador...");
@@ -182,11 +214,13 @@ namespace Vet02.App.Consola
                                 Console.WriteLine("Actualizar Admin...");
                                 Thread.Sleep(1500);
                                 Console.Clear();
-                                ActualizarAdmin();
+                                GestionAdministradores.ActualizarAdministrador();
                                 break;
                             case 2:
                                 Console.WriteLine("Actualizar Vet...");
                                 Thread.Sleep(1500);
+                                Console.Clear();
+                                GestionVeterinarios.ActualizarVeterinario();
                                 break;
                             case 3:
                                 Console.WriteLine("Actualizar Cuidador...");
@@ -221,11 +255,13 @@ namespace Vet02.App.Consola
                                 Console.WriteLine("Borrar Admin...");
                                 Thread.Sleep(1500);
                                 Console.Clear();
-                                BorrarAdmin();
+                                GestionAdministradores.BorrarAdministrador();
                                 break;
                             case 2:
                                 Console.WriteLine("Borrar Vet...");
                                 Thread.Sleep(1500);
+                                Console.Clear();
+                                GestionVeterinarios.BorrarVeterinario();
                                 break;
                             case 3:
                                 Console.WriteLine("Borrar Cuidador...");
@@ -266,143 +302,6 @@ namespace Vet02.App.Consola
                         break;
                 }
             }
-        }
-
-        static void AgregarAdmin()
-        {
-			Console.Write("Nombre: ");
-			string nombreAdm = Console.ReadLine();
-			Console.Write("Apellidos: ");
-			string apellidosAdm = Console.ReadLine();
-			Console.Write("Sexo: ");
-			string sexoAdm = Console.ReadLine();
-			Console.Write("Edad: ");
-			int edadAdm = Convert.ToInt32(Console.ReadLine());
-			Console.Write("Numero de Documento: ");
-                        int numDocAdm = Convert.ToInt32(Console.ReadLine());
-			Console.Write("Cargo: ");
-			string cargoAdm = Console.ReadLine();
-			Console.Write("Correo electronico: ");
-			string emailAdm = Console.ReadLine();
-			Console.Write("Contraseña de acceso: ");
-			string psswdAdm = Console.ReadLine();
-
-			Administrador admin = new Administrador
-			{
-				Nombre = nombreAdm,
-                Apellidos = apellidosAdm,
-    	        NumeroDocumento = numDocAdm,
-                FechaRegistro = DateTime.Now.Date,
-                Email = emailAdm,
-                Password = psswdAdm,
-                Sexo = sexoAdm,
-                Edad = edadAdm,
-				Cargo = cargoAdm
-			};
-			repositorioAdministrador.AddAdministrador(admin);
-        }
-
-        static void ConsultarAdmin()
-        {
-            Console.Write("Digite numero de documento de Aministrador: ");
-            int idAmin = Convert.ToInt32(Console.ReadLine());
-            Administrador adminEncontrado = repositorioAdministrador.GetAdministrador(idAmin);
-            if(adminEncontrado != null)
-            {
-                Console.WriteLine("DATOS DE ADMINISTRADOR\n");
-                Console.WriteLine("Nombre: " + adminEncontrado.Nombre);
-                Console.WriteLine("Apellidos: " + adminEncontrado.Apellidos);
-                Console.WriteLine("Numero de documento: " + adminEncontrado.NumeroDocumento);
-            }
-            else
-            {
-                Console.WriteLine("ADMINISTRADOR NO ENCONTRADO...");
-            }
-            Console.WriteLine("Presione ENTER para continuar...");
-            Console.ReadLine();
-
-        }
-
-        static void ActualizarAdmin()
-        {
-            Console.Write("Ingrese numero de documento de Administrador: ");
-            int numDocAdm = Convert.ToInt32(Console.ReadLine());
-            Administrador adminEncontrado = repositorioAdministrador.GetAdministrador(numDocAdm);
-            if(adminEncontrado != null)
-            {
-                repositorioAdministrador.DeleteAdministradorById(adminEncontrado.Id);
-                Console.WriteLine("\nNombre de Administrador: "+adminEncontrado.Nombre);
-                Console.WriteLine("Desea editar? (S/N): ");
-                string conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nuevo nombre: ");
-                    adminEncontrado.Nombre = Console.ReadLine();
-                }
-                Console.WriteLine("\nApellidos de Administrador: "+adminEncontrado.Apellidos);
-                Console.WriteLine("Desea editar? (S/N): ");
-                conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nuevos apellidos: ");
-                    adminEncontrado.Apellidos = Console.ReadLine();
-                }
-                Console.WriteLine("\nSexo de Administrador: "+adminEncontrado.Sexo);
-                Console.WriteLine("Desea editar? (S/N): ");
-                conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nuevo sexo: ");
-                    adminEncontrado.Sexo = Console.ReadLine();
-                }
-                Console.WriteLine("\nNumero de documento de Administrador: "+adminEncontrado.NumeroDocumento);
-                Console.WriteLine("Desea editar? (S/N): ");
-                conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nuevo numero de documento: ");
-                    adminEncontrado.NumeroDocumento = Convert.ToInt32(Console.ReadLine());
-                }
-                Console.WriteLine("\nEdad de Administrador: "+adminEncontrado.Edad);
-                Console.WriteLine("Desea editar? (S/N): ");
-                conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nueva edad: ");
-                    adminEncontrado.Edad = Convert.ToInt32(Console.ReadLine());
-                }
-                Console.WriteLine("\nCorreo electronico de Administrador: "+adminEncontrado.Email);
-                Console.WriteLine("Desea editar? (S/N): ");
-                conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nuevo correo electronico: ");
-                    adminEncontrado.Email = Console.ReadLine();
-                }
-                Console.WriteLine("\nContraseña de Administrador: "+adminEncontrado.Password);
-                Console.WriteLine("Desea editar? (S/N): ");
-                conf = Console.ReadLine();
-                if(conf.Equals("s") || conf.Equals("S"))
-                {
-                    Console.WriteLine("\nIngrese nueva contraseña: ");
-                    adminEncontrado.Password = Console.ReadLine();
-                }
-                repositorioAdministrador.AddAdministrador(adminEncontrado);
-                
-            }
-            else
-            {
-                Console.WriteLine("ADMINISTRADOR NO ENCONTRADO...\n");
-                Console.WriteLine("\nPresione ENTER para continuar--");
-                Console.ReadLine();
-            }
-        }
-
-        static void BorrarAdmin()
-        {
-            Console.Write("Digite Numero de documento de Aministrador: ");
-            int idAmin = Convert.ToInt32(Console.ReadLine());
-            repositorioAdministrador.DeleteAdministrador(idAmin);
         }
     }
 }

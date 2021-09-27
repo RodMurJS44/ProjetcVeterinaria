@@ -11,5 +11,6 @@ namespace Vet02.App.Persistencia
         void DeleteAdministrador(int numDocAdm);
         void DeleteAdministradorById(int idAdm);
         Administrador GetAdministrador(int numDocAdm);
+        Administrador GetAdministradorByEmail(string emailAdmin);
     }
 }

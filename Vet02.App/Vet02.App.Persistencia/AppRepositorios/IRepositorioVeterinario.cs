@@ -6,9 +6,11 @@ namespace Vet02.App.Persistencia
     public interface IRepositorioVeterinario
     {
         IEnumerable<Veterinario> GetAllVeterinarios();
-        Veterinario AddVeterinario(Veterinario vet);
-        Veterinario UpdateVeterinario(Veterinario vet);
-        void DeleteVeterinario(int idVeterinario);
-        Veterinario GetVeterinario(int idVeterinario);
+        Veterinario AddVeterinario(Veterinario newVet);
+        Veterinario UpdateVeterinario(Veterinario newVet);
+        void DeleteVeterinario(int numDocVet);
+        void DeleteVeterinarioById(int idVet);
+        Veterinario GetVeterinario(int numDocVet);
+        Veterinario GetVeterinarioByEmail(string emailVet);
     }
 }

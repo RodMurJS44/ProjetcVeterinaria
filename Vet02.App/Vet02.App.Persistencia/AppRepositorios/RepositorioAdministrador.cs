@@ -23,11 +23,26 @@ namespace Vet02.App.Persistencia
             this.appContext.SaveChanges();
             return adminAdicionado.Entity;
         }
-        Administrador IRepositorioAdministrador.UpdateAdministrador(Administrador admin)
+        Administrador IRepositorioAdministrador.UpdateAdministrador(Administrador adminNuevo)
         {
-            var adminAdicionado = this.appContext.Administradores.Add(admin);
-            this.appContext.SaveChanges();
-            return adminAdicionado.Entity;
+            var adminEncontrado = this.appContext.Administradores.FirstOrDefault(a => a.Id == adminNuevo.Id);
+            if(adminEncontrado != null)
+            {
+                adminEncontrado.Nombre = adminNuevo.Nombre;
+                adminEncontrado.Apellidos = adminNuevo.Apellidos;
+                adminEncontrado.NumeroDocumento = adminNuevo.NumeroDocumento;
+                adminEncontrado.Email = adminNuevo.Email;
+                adminEncontrado.Password = adminNuevo.Password;
+                adminEncontrado.Sexo = adminNuevo.Sexo;
+                adminEncontrado.Edad = adminNuevo.Edad;
+                adminEncontrado.Cargo = adminNuevo.Cargo;
+                this.appContext.SaveChanges();
+                return adminNuevo;
+            }
+            else
+            {
+                return null;
+            }
         }
         void IRepositorioAdministrador.DeleteAdministrador(int numDocAdmin)
         {
@@ -50,6 +65,10 @@ namespace Vet02.App.Persistencia
         Administrador IRepositorioAdministrador.GetAdministrador(int numDocAdm)
         {
             return this.appContext.Administradores.FirstOrDefault(a => a.NumeroDocumento == numDocAdm);
+        }
+        Administrador IRepositorioAdministrador.GetAdministradorByEmail(string emailAdmin)
+        {
+            return this.appContext.Administradores.FirstOrDefault(a => a.Email == emailAdmin);
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5+CMLUGkVheXjq0p/ZFreExkJfJ+rJQLp9Ms3k2eOF7He3GRu/QaGsGWCHFLLGfSeDCY/vH+GhOo7iijgvIW2g==",
+  "dgSpecHash": "GjcQkcXZFB1Rg4om60xUrzTX0UUYwc+lLTqmavNvXmhQlzKeg4stEAf0AMVwV8GW49Gk83ugqXYwhopIhdNLOg==",
   "success": true,
-  "projectFilePath": "C:\\Vet02\\Vet02.App\\Vet02.App.Dominio\\Vet02.App.Dominio.csproj",
+  "projectFilePath": "C:\\VetProject\\ProjetcVeterinaria\\Vet02.App\\Vet02.App.Dominio\\Vet02.App.Dominio.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
